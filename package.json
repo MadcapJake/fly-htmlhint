@@ -4,20 +4,17 @@
   "description": "HTMLHint plugin for Fly.",
   "license": "MIT",
   "repository": "https://github.com/MadcapJake/fly-htmlhint",
-  "main": "index.js",
-  "files": [
-    "index.js"
-  ],
+  "main": "dist/index.js",
   "keywords": [
     "fly",
     "fly-plugin",
     "htmlhint"
   ],
   "scripts": {
-    "lint": "eslint *.js",
+    "lint": "eslint src/*.js",
     "setup": "npm i && npm test",
     "test": "npm run lint && tape test/*.js | tspec",
-    "build": "echo No build task specified.",
+    "build": "babel --optional runtime src/ -d ./dist",
     "deploy": "npm run test && git push origin master && npm publish",
     "test-ci": "node --harmony --harmony_arrow_functions ./node_modules/tape/bin/tape test/*.js"
   },
@@ -27,9 +24,12 @@
     "url": "http://github.com/MadcapJake"
   },
   "dependencies": {
+    "clor": "^1.0.2",
     "htmlhint": "^0.9.7"
   },
   "devDependencies": {
+    "babel": "^5.8.3",
+    "babel-eslint": "^3.1.26",
     "eslint": "^0.21.2",
     "tap-spec": "^4.0.2",
     "tape": "^4.0.0"
