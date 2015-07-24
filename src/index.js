@@ -1,12 +1,13 @@
 const htmlhint = require("htmlhint").HTMLHint
 const clor = require("clor")
+const assign = require("object-assign")
 
-const fmt = Object.assign(clor, {
-  line: clor.bold.blue("%s"),
-  col: clor.bold.green("%s"),
+const fmt = assign(clor, {
+  line: clor.bold.blue("%d"),
+  col: clor.bold.green("%d"),
   error: clor.bold.red("%s"),
-  warn: clor.bold.orange("%s"),
-  debug: clor.bold.yellow("%s"),
+  warn: clor.bold.yellow("%s"),
+  debug: clor.bold.white("%s"),
   rule: clor.underline.cyan("%s")
 })
 
@@ -20,25 +21,27 @@ module.exports = function () {
       htmlhint.verify(source, options).forEach(function (msg) {
         if (msg.type === "error") {
           counts.errors++
-          this.error(`HTMLHint: ${fmt.line}:${fmt.col} ${fmt.error} ${fmt.rule}`,
+          this.error(`${fmt.line} : ${fmt.col} ${fmt.error} ${fmt.rule}`,
             msg.line, msg.col, msg.message, msg.rule.id)
         }
         else if (msg.type === "warning") {
           counts.warnings++
-          this.warn(`HTMLHint: ${fmt.line}:${fmt.col} ${fmt.warn} ${fmt.rule}`,
+          this.warn(`${fmt.line} : ${fmt.col} ${fmt.warn} ${fmt.rule}`,
             msg.line, msg.col, msg.message, msg.rule.id)
         }
         else if (msg.type === "info") {
-          this.debug(`HTMLHint: ${fmt.line}:${fmt.col} ${fmt.debug} ${fmt.rule}`,
+          this.debug(`${fmt.line} : ${fmt.col} ${fmt.debug} ${fmt.rule}`,
             msg.line, msg.col, msg.message, msg.rule.id)
         }
       }.bind(this))
     } catch (e) { throw e }
-    if (counts.errors + counts.warnings >= 1) {
-      const total = counts.errors + counts.warnings
-      this.error(`✖ %d problem%s (%d error, %d warnings)`,
-        total, total > 1 ? "s" : "", counts.errors, counts.warnings)
-    }
+    const total = counts.errors + counts.warnings
+    this.error(`%s %d problem%s (%d error%s, %d warning%s)`,
+      total >= 1 ? "✖" : "✓",
+      total, total > 1 || total === 0 ? "s" : "",
+      counts.errors, counts.errors > 1 || counts.errors === 0 ? "s" : "",
+      counts.warnings, counts.warnings > 1 || counts.warnings === 0 ? "s" : ""
+    )
     return source
   }, { ext: ".html" })
 }
