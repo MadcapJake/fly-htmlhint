@@ -4,7 +4,7 @@
   </a>
 </div>
 
-> [Htmlhint](https://github.com/MadcapJake/fly-htmlhint) plugin for _[Fly][fly]_.
+> [Htmlhint](http://htmlhint.com/) plugin for _[Fly][fly]_.
 
 [![][fly-badge]][fly]
 [![npm package][npm-ver-link]][releases]
@@ -13,7 +13,7 @@
 [![][mit-badge]][mit]
 
 ## Usage
-> Check out the [documentation](PLUGIN_DOCUMENTATION) to see the available options.
+> Check out the [documentation](https://github.com/yaniswang/HTMLHint/wiki/Usage#how-to-use) to see the available options.
 
 ### Install
 
@@ -25,7 +25,10 @@ npm install -D fly-htmlhint
 
 ```js
 export default function* () {
-  yield ...
+  yield this
+    .source("src/**/*.html")
+    .htmlhint()
+    .target("lib")
 }
 ```
 
