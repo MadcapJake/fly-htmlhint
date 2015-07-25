@@ -4,7 +4,7 @@
   </a>
 </div>
 
-> [Htmlhint](http://htmlhint.com/) plugin for _[Fly][fly]_.
+> [HTMLHint](http://htmlhint.com/) plugin for _[Fly][fly]_.
 
 [![][fly-badge]][fly]
 [![npm package][npm-ver-link]][releases]
