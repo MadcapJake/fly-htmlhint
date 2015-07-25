@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "clor": "^1.0.2",
+    "fly-util": "^3.4.3",
     "htmlhint": "^0.9.7",
     "object-assign": "^3.0.0"
   },
