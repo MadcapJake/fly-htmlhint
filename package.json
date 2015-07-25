@@ -1,6 +1,6 @@
 {
   "name": "fly-htmlhint",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "HTMLHint plugin for Fly.",
   "license": "MIT",
   "repository": "https://github.com/MadcapJake/fly-htmlhint",
